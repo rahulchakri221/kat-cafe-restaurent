@@ -1,0 +1,2708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>KAT Multicuisine Restaurant</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   KAT MULTICUISINE RESTAURENT
+   PREMIUM MOBILE RESTAURANT APP
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --black:#070706;
+    --black2:#0d0c0a;
+    --card:#151411;
+    --card2:#1b1914;
+
+    --gold:#d49a32;
+    --gold-light:#ffd46b;
+    --gold-dark:#9b6615;
+
+    --cream:#fff4d9;
+    --white:#ffffff;
+    --muted:#98958c;
+    --green:#25d366;
+    --red:#ff554f;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    position:relative;
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(212,154,50,.13),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 10% 45%,
+            rgba(255,91,37,.055),
+            transparent 25%
+        ),
+        var(--black);
+
+    padding-bottom:100px;
+}
+
+/* =========================================================
+   SPLASH SCREEN
+========================================================= */
+
+.splash{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(212,154,50,.18),
+            transparent 32%
+        ),
+        #050504;
+
+    overflow:hidden;
+}
+
+.splash.hide{
+    animation:splashOut 1.2s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+.splash-glow{
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,202,92,.20),
+            rgba(212,154,50,.06) 35%,
+            transparent 70%
+        );
+
+    filter:blur(12px);
+
+    animation:
+        glowPulse 2.8s ease-in-out infinite;
+}
+
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:var(--gold-light);
+
+    box-shadow:
+        0 0 8px var(--gold-light),
+        0 0 20px rgba(255,196,78,.7);
+
+    animation:particleFloat linear infinite;
+}
+
+.splash-content{
+    position:relative;
+    z-index:3;
+    text-align:center;
+}
+
+.splash-ring{
+    width:175px;
+    height:175px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,211,105,.35);
+
+    box-shadow:
+        0 0 30px rgba(212,154,50,.12),
+        inset 0 0 40px rgba(212,154,50,.08);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    animation:ringIn 1.4s cubic-bezier(.2,.8,.2,1);
+}
+
+.splash-ring::before{
+    content:"";
+    position:absolute;
+
+    width:145px;
+    height:145px;
+
+    border-radius:50%;
+
+    border:1px dashed rgba(255,211,105,.22);
+
+    animation:spin 15s linear infinite;
+}
+
+.logo-main{
+    font-family:"Playfair Display",serif;
+
+    font-size:62px;
+    font-weight:800;
+
+    letter-spacing:5px;
+
+    color:var(--cream);
+
+    text-shadow:
+        0 0 15px rgba(255,202,92,.25),
+        0 0 45px rgba(212,154,50,.16);
+
+    animation:
+        logoReveal 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.logo-main span{
+    color:var(--gold-light);
+}
+
+.splash-sub{
+    margin-top:25px;
+
+    font-size:10px;
+    letter-spacing:4px;
+
+    color:#c8bda4;
+
+    opacity:0;
+
+    animation:
+        fadeUp .8s ease 1s forwards;
+}
+
+.splash-line{
+    width:0;
+    height:1px;
+
+    margin:18px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold-light),
+            transparent
+        );
+
+    animation:
+        lineGrow 1s ease 1.2s forwards;
+}
+
+.splash-location{
+    font-size:11px;
+    color:#77746c;
+
+    opacity:0;
+
+    animation:
+        fadeUp .8s ease 1.35s forwards;
+}
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.header{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:24px 20px 10px;
+}
+
+.brand-small{
+    font-family:"Playfair Display",serif;
+    font-size:25px;
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.brand-small span{
+    color:var(--gold-light);
+}
+
+.header-location{
+    margin-top:4px;
+
+    font-size:11px;
+    color:var(--muted);
+}
+
+.profile{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #29251a,
+            #0c0c0a
+        );
+
+    border:1px solid rgba(255,208,103,.3);
+
+    box-shadow:
+        0 0 25px rgba(212,154,50,.1);
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search{
+    margin:12px 17px 20px;
+
+    height:51px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 17px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:1px solid rgba(255,255,255,.075);
+
+    backdrop-filter:blur(20px);
+
+    transition:.3s;
+}
+
+.search:focus-within{
+    border-color:rgba(255,202,98,.4);
+
+    box-shadow:
+        0 0 30px rgba(212,154,50,.08);
+}
+
+.search-icon{
+    font-size:19px;
+    margin-right:10px;
+}
+
+.search input{
+    flex:1;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    color:#fff;
+
+    font-size:13px;
+}
+
+.search input::placeholder{
+    color:#74716a;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    margin:0 16px 27px;
+
+    min-height:420px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.98) 0%,
+            rgba(0,0,0,.52) 43%,
+            rgba(0,0,0,.03) 100%
+        ),
+        url("https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=1000&q=90")
+        center/cover;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.55);
+
+    animation:heroEntrance 1.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+    inset:-30%;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 35%,
+            rgba(255,216,128,.16) 50%,
+            transparent 65%
+        );
+
+    animation:
+        heroShine 5s ease-in-out infinite;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.hero-content{
+    position:absolute;
+
+    z-index:2;
+
+    bottom:29px;
+    left:24px;
+    right:24px;
+}
+
+.hero-badge{
+    display:inline-flex;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    background:
+        rgba(212,154,50,.16);
+
+    border:1px solid rgba(255,210,100,.35);
+
+    backdrop-filter:blur(15px);
+
+    color:var(--gold-light);
+
+    font-size:9px;
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:12px;
+}
+
+.hero-title{
+    font-family:"Playfair Display",serif;
+
+    font-size:42px;
+    line-height:.98;
+
+    max-width:350px;
+
+    margin-bottom:13px;
+}
+
+.hero-description{
+    color:#c7c4bb;
+
+    font-size:12px;
+
+    line-height:1.55;
+
+    max-width:300px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+
+    margin-top:19px;
+}
+
+.btn-primary{
+    border:0;
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    color:#171107;
+
+    font-size:12px;
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(212,154,50,.25);
+
+    transition:.25s;
+}
+
+.btn-primary:active{
+    transform:scale(.95);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,.14);
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    color:#fff;
+
+    font-size:12px;
+    font-weight:700;
+
+    backdrop-filter:blur(15px);
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-actions{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    padding:0 17px;
+
+    margin-bottom:29px;
+}
+
+.quick{
+    padding:15px 8px;
+
+    border-radius:17px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191814,
+            #0e0e0c
+        );
+
+    border:1px solid rgba(255,255,255,.06);
+
+    transition:.3s;
+}
+
+.quick:active{
+    transform:scale(.95);
+}
+
+.quick-icon{
+    font-size:21px;
+    margin-bottom:6px;
+}
+
+.quick-text{
+    font-size:10px;
+    color:#bdb9ae;
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section{
+    padding:0 17px;
+
+    margin-bottom:29px;
+}
+
+.section-header{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.section-header h2{
+    font-family:"Playfair Display",serif;
+
+    font-size:23px;
+}
+
+.section-header button{
+    border:0;
+
+    background:none;
+
+    color:var(--gold-light);
+
+    font-size:11px;
+}
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.categories{
+    display:flex;
+
+    gap:9px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    flex-shrink:0;
+
+    min-width:82px;
+
+    padding:12px 10px;
+
+    border-radius:17px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1a1915,
+            #0e0e0c
+        );
+
+    border:1px solid rgba(255,255,255,.06);
+
+    transition:.3s;
+}
+
+.category.active{
+    background:
+        linear-gradient(
+            145deg,
+            #49351a,
+            #21160a
+        );
+
+    border-color:
+        rgba(255,205,100,.4);
+
+    box-shadow:
+        0 8px 25px rgba(212,154,50,.1);
+}
+
+.category-icon{
+    font-size:23px;
+    margin-bottom:6px;
+}
+
+.category-name{
+    color:#bbb8af;
+    font-size:10px;
+}
+
+/* =========================================================
+   FOOD GRID
+========================================================= */
+
+.food-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:13px;
+}
+
+.food-card{
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    padding:8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191916,
+            #0d0d0b
+        );
+
+    border:1px solid rgba(255,255,255,.065);
+
+    transition:
+        transform .35s,
+        border .35s,
+        box-shadow .35s;
+}
+
+.food-card:active{
+    transform:scale(.97);
+}
+
+.food-card:hover{
+    transform:translateY(-5px);
+
+    border-color:
+        rgba(255,205,100,.28);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.3);
+}
+
+.food-image-wrap{
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:16px;
+}
+
+.food-img{
+    display:block;
+
+    width:100%;
+    height:150px;
+
+    object-fit:cover;
+
+    transition:
+        transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.food-card:hover .food-img{
+    transform:scale(1.08);
+}
+
+.food-tag{
+    position:absolute;
+
+    left:9px;
+    top:9px;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    background:
+        rgba(0,0,0,.65);
+
+    backdrop-filter:blur(8px);
+
+    color:#ffd46b;
+
+    font-size:8px;
+    font-weight:700;
+}
+
+.food-details{
+    padding:11px 4px 5px;
+}
+
+.food-name{
+    font-size:13px;
+    font-weight:800;
+
+    margin-bottom:5px;
+}
+
+.food-description{
+    color:#7f7d75;
+
+    font-size:9px;
+
+    line-height:1.4;
+
+    min-height:25px;
+
+    margin-bottom:8px;
+}
+
+.food-bottom{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+}
+
+.food-price{
+    color:var(--gold-light);
+
+    font-size:16px;
+
+    font-weight:800;
+}
+
+.add-btn{
+    width:32px;
+    height:32px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    color:#161109;
+
+    font-size:20px;
+
+    box-shadow:
+        0 7px 20px rgba(212,154,50,.18);
+}
+
+/* =========================================================
+   OFFER
+========================================================= */
+
+.offer{
+    margin:0 17px 29px;
+
+    min-height:170px;
+
+    padding:23px;
+
+    border-radius:25px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 90% 35%,
+            rgba(255,199,85,.32),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #2a1d0b,
+            #100e09
+        );
+
+    border:1px solid rgba(255,202,98,.18);
+}
+
+.offer::before{
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    right:-70px;
+    top:-65px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,210,110,.15);
+
+    box-shadow:
+        0 0 0 28px rgba(255,210,110,.025),
+        0 0 0 58px rgba(255,210,110,.018);
+}
+
+.offer-label{
+    color:var(--gold-light);
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+.offer-title{
+    font-family:"Playfair Display",serif;
+
+    font-size:27px;
+
+    line-height:1.05;
+
+    margin-top:7px;
+}
+
+.offer-description{
+    color:#aaa69a;
+
+    font-size:10px;
+
+    margin-top:8px;
+}
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location-card{
+    margin:0 17px 30px;
+
+    padding:18px;
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171613,
+            #0e0e0c
+        );
+
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.location-top{
+    display:flex;
+    gap:13px;
+    align-items:center;
+}
+
+.location-pin{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+        rgba(212,154,50,.12);
+
+    border:1px solid rgba(212,154,50,.2);
+
+    font-size:19px;
+}
+
+.location-title{
+    font-size:13px;
+    font-weight:700;
+}
+
+.location-address{
+    color:#77746c;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+    margin-top:3px;
+}
+
+.direction-btn{
+    width:100%;
+
+    margin-top:14px;
+
+    padding:12px;
+
+    border-radius:13px;
+
+    border:1px solid rgba(255,205,100,.2);
+
+    background:
+        rgba(212,154,50,.08);
+
+    color:var(--gold-light);
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+/* =========================================================
+   CART
+========================================================= */
+
+.cart-bar{
+    position:fixed;
+
+    z-index:100;
+
+    left:50%;
+
+    bottom:87px;
+
+    width:calc(100% - 30px);
+
+    max-width:450px;
+
+    padding:13px 15px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    border-radius:19px;
+
+    background:
+        rgba(28,25,18,.95);
+
+    border:1px solid rgba(255,205,100,.3);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.55);
+
+    transform:
+        translate(-50%,120px);
+
+    opacity:0;
+
+    transition:.45s cubic-bezier(.2,.8,.2,1);
+}
+
+.cart-bar.show{
+    transform:
+        translate(-50%,0);
+
+    opacity:1;
+}
+
+.cart-count{
+    font-size:12px;
+    font-weight:700;
+}
+
+.cart-total{
+    color:#8d8a81;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.cart-view{
+    border:0;
+
+    padding:11px 16px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    color:#161109;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+
+    z-index:90;
+
+    bottom:11px;
+    left:50%;
+
+    width:calc(100% - 24px);
+
+    max-width:456px;
+
+    height:65px;
+
+    transform:translateX(-50%);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+
+    background:
+        rgba(18,17,14,.94);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:23px;
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 12px 45px rgba(0,0,0,.5);
+}
+
+.nav-item{
+    text-align:center;
+
+    color:#69675f;
+
+    font-size:9px;
+
+    transition:.3s;
+
+    cursor:pointer;
+}
+
+.nav-icon{
+    font-size:19px;
+
+    margin-bottom:3px;
+}
+
+.nav-item.active{
+    color:var(--gold-light);
+
+    transform:translateY(-2px);
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    z-index:999;
+
+    left:50%;
+    top:20px;
+
+    padding:12px 18px;
+
+    border-radius:14px;
+
+    background:
+        rgba(30,28,23,.96);
+
+    border:
+        1px solid rgba(255,205,100,.3);
+
+    color:#eee;
+
+    font-size:11px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.4);
+
+    transform:
+        translate(-50%,-90px);
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+.toast.show{
+    transform:
+        translate(-50%,0);
+
+    opacity:1;
+}
+
+/* =========================================================
+   CART MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    z-index:500;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.7);
+
+    backdrop-filter:blur(10px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.35s;
+}
+
+.modal.open{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.cart-sheet{
+    position:absolute;
+
+    bottom:0;
+    left:50%;
+
+    width:100%;
+    max-width:480px;
+
+    padding:22px;
+
+    border-radius:
+        28px 28px 0 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #1a1813,
+            #0c0c0a
+        );
+
+    border-top:
+        1px solid rgba(255,205,100,.18);
+
+    transform:
+        translate(-50%,100%);
+
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.modal.open .cart-sheet{
+    transform:
+        translate(-50%,0);
+}
+
+.sheet-handle{
+    width:45px;
+    height:4px;
+
+    border-radius:5px;
+
+    background:#555;
+
+    margin:0 auto 20px;
+}
+
+.sheet-title{
+    font-family:"Playfair Display",serif;
+
+    font-size:25px;
+
+    margin-bottom:17px;
+}
+
+.cart-list{
+    max-height:270px;
+
+    overflow:auto;
+}
+
+.cart-row{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    padding:13px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+}
+
+.cart-row-name{
+    font-size:12px;
+}
+
+.cart-row-price{
+    color:var(--gold-light);
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.checkout{
+    width:100%;
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    color:#171107;
+
+    font-size:13px;
+
+    font-weight:800;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes ringIn{
+    from{
+        transform:scale(.2) rotate(-80deg);
+        opacity:0;
+    }
+    to{
+        transform:scale(1) rotate(0);
+        opacity:1;
+    }
+}
+
+@keyframes logoReveal{
+    from{
+        opacity:0;
+        transform:
+            translateY(30px)
+            scale(.75);
+        filter:blur(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+        filter:blur(0);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes lineGrow{
+    to{
+        width:150px;
+    }
+}
+
+@keyframes glowPulse{
+    0%,100%{
+        transform:scale(.85);
+        opacity:.55;
+    }
+
+    50%{
+        transform:scale(1.1);
+        opacity:1;
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes particleFloat{
+    from{
+        transform:
+            translateY(100vh)
+            scale(.4);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    80%{
+        opacity:1;
+    }
+
+    to{
+        transform:
+            translateY(-20vh)
+            translateX(40px)
+            scale(1);
+        opacity:0;
+    }
+}
+
+@keyframes splashOut{
+    to{
+        opacity:0;
+        visibility:hidden;
+        transform:scale(1.04);
+    }
+}
+
+@keyframes heroEntrance{
+    from{
+        opacity:0;
+        transform:
+            translateY(40px)
+            scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes heroShine{
+    0%{
+        transform:translateX(-100%);
+    }
+
+    45%,100%{
+        transform:translateX(100%);
+    }
+}
+
+/* =========================================================
+   DESKTOP PREVIEW
+========================================================= */
+
+@media(min-width:700px){
+
+    body{
+        padding:20px 0;
+        background:
+            radial-gradient(
+                circle,
+                #242017,
+                #000
+            );
+    }
+
+    .app{
+        min-height:calc(100vh - 40px);
+
+        border-radius:30px;
+
+        box-shadow:
+            0 30px 100px rgba(0,0,0,.7);
+    }
+
+    .bottom-nav{
+        bottom:30px;
+    }
+
+    .cart-bar{
+        bottom:105px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     SPLASH
+===================================================== -->
+
+<div class="splash" id="splash">
+
+    <div class="splash-glow"></div>
+
+    <div class="particle" style="left:12%;animation-duration:7s;animation-delay:0s"></div>
+    <div class="particle" style="left:25%;animation-duration:9s;animation-delay:1s"></div>
+    <div class="particle" style="left:40%;animation-duration:6s;animation-delay:2s"></div>
+    <div class="particle" style="left:57%;animation-duration:8s;animation-delay:.5s"></div>
+    <div class="particle" style="left:72%;animation-duration:10s;animation-delay:1.5s"></div>
+    <div class="particle" style="left:88%;animation-duration:7s;animation-delay:3s"></div>
+
+    <div class="splash-content">
+
+        <div class="splash-ring">
+
+            <div class="logo-main">
+                K<span>A</span>T
+            </div>
+
+        </div>
+
+        <div class="splash-sub">
+            MULTICUISINE RESTAURENT
+        </div>
+
+        <div class="splash-line"></div>
+
+        <div class="splash-location">
+            BADVEL • ANDHRA PRADESH
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app">
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div>
+
+        <div class="brand-small">
+            KAT<span>.</span>CAFE
+        </div>
+
+        <div class="header-location">
+            📍 Badvel, Andhra Pradesh
+        </div>
+
+    </div>
+
+    <div class="profile">
+        👤
+    </div>
+
+</header>
+
+
+<!-- SEARCH -->
+
+<div class="search">
+
+    <div class="search-icon">
+        🔍
+    </div>
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search for dishes..."
+        oninput="searchFood()"
+    >
+
+</div>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            ✦ KAT MULTICUISINE
+        </div>
+
+        <h1 class="hero-title">
+            Great food.<br>
+            Great moments.
+        </h1>
+
+        <p class="hero-description">
+            Discover delicious flavours and memorable
+            dining moments at KAT Multicuisine Restaurant.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button
+                class="btn-primary"
+                onclick="goMenu()">
+                Explore Menu
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="callRestaurant()">
+                Call Now
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="quick-actions">
+
+    <div class="quick"
+         onclick="goMenu()">
+
+        <div class="quick-icon">
+            🍽️
+        </div>
+
+        <div class="quick-text">
+            View Menu
+        </div>
+
+    </div>
+
+
+    <div class="quick"
+         onclick="orderWhatsApp()">
+
+        <div class="quick-icon">
+            💬
+        </div>
+
+        <div class="quick-text">
+            WhatsApp
+        </div>
+
+    </div>
+
+
+    <div class="quick"
+         onclick="openMaps()">
+
+        <div class="quick-icon">
+            📍
+        </div>
+
+        <div class="quick-text">
+            Directions
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <h2>
+            Explore
+        </h2>
+
+        <button>
+            See all
+        </button>
+
+    </div>
+
+
+    <div class="categories">
+
+        <div class="category active"
+             onclick="selectCategory(this,'all')">
+
+            <div class="category-icon">
+                🔥
+            </div>
+
+            <div class="category-name">
+                Popular
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             onclick="selectCategory(this,'biryani')">
+
+            <div class="category-icon">
+                🍚
+            </div>
+
+            <div class="category-name">
+                Biryani
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             onclick="selectCategory(this,'chicken')">
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-name">
+                Chicken
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             onclick="selectCategory(this,'rice')">
+
+            <div class="category-icon">
+                🍳
+            </div>
+
+            <div class="category-name">
+                Rice
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             onclick="selectCategory(this,'noodles')">
+
+            <div class="category-icon">
+                🍜
+            </div>
+
+            <div class="category-name">
+                Noodles
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             onclick="selectCategory(this,'drinks')">
+
+            <div class="category-icon">
+                🥤
+            </div>
+
+            <div class="category-name">
+                Drinks
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOD -->
+
+<section class="section" id="menu">
+
+    <div class="section-header">
+
+        <h2>
+            Popular Dishes
+        </h2>
+
+        <button onclick="goMenu()">
+            View all
+        </button>
+
+    </div>
+
+
+    <div class="food-grid" id="foodGrid">
+
+
+        <!-- BIRYANI -->
+
+        <div class="food-card"
+             data-category="biryani">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=90"
+                    alt="Chicken Biryani">
+
+                <div class="food-tag">
+                    ★ POPULAR
+                </div>
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Chicken Biryani
+                </div>
+
+                <div class="food-description">
+                    Aromatic basmati rice with tender chicken.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹199
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Chicken Biryani',199)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHICKEN 65 -->
+
+        <div class="food-card"
+             data-category="chicken">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=90"
+                    alt="Chicken 65">
+
+                <div class="food-tag">
+                    🔥 HOT
+                </div>
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Chicken 65
+                </div>
+
+                <div class="food-description">
+                    Crispy, spicy and freshly prepared.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹169
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Chicken 65',169)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FRIED RICE -->
+
+        <div class="food-card"
+             data-category="rice">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=90"
+                    alt="Chicken Fried Rice">
+
+                <div class="food-tag">
+                    CHEF PICK
+                </div>
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Chicken Fried Rice
+                </div>
+
+                <div class="food-description">
+                    Wok tossed rice with fresh ingredients.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹149
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Chicken Fried Rice',149)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOODLES -->
+
+        <div class="food-card"
+             data-category="noodles">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=90"
+                    alt="Chicken Noodles">
+
+                <div class="food-tag">
+                    NEW
+                </div>
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Chicken Noodles
+                </div>
+
+                <div class="food-description">
+                    Hot wok noodles with rich flavours.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹149
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Chicken Noodles',149)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VEG RICE -->
+
+        <div class="food-card"
+             data-category="rice">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=90"
+                    alt="Veg Fried Rice">
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Veg Fried Rice
+                </div>
+
+                <div class="food-description">
+                    Fresh vegetables tossed with fragrant rice.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹129
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Veg Fried Rice',129)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STARTER -->
+
+        <div class="food-card"
+             data-category="chicken">
+
+            <div class="food-image-wrap">
+
+                <img
+                    class="food-img"
+                    src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=90"
+                    alt="Chicken Starter">
+
+            </div>
+
+            <div class="food-details">
+
+                <div class="food-name">
+                    Crispy Chicken
+                </div>
+
+                <div class="food-description">
+                    Golden crispy chicken with special seasoning.
+                </div>
+
+                <div class="food-bottom">
+
+                    <div class="food-price">
+                        ₹179
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addItem('Crispy Chicken',179)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- OFFER -->
+
+<div class="offer">
+
+    <div class="offer-label">
+        KAT SPECIAL
+    </div>
+
+    <div class="offer-title">
+        Something delicious<br>
+        is waiting for you.
+    </div>
+
+    <div class="offer-description">
+        Visit KAT Multicuisine Restaurant, Badvel.
+    </div>
+
+</div>
+
+
+<!-- LOCATION -->
+
+<div class="location-card">
+
+    <div class="location-top">
+
+        <div class="location-pin">
+            📍
+        </div>
+
+        <div>
+
+            <div class="location-title">
+                Find KAT Multicuisine Restaurant
+            </div>
+
+            <div class="location-address">
+                Nellore Road, opposite Ayyappa Swamy Temple,
+                beside Sivalayam Arch, Badvel.
+            </div>
+
+        </div>
+
+    </div>
+
+    <button
+        class="direction-btn"
+        onclick="openMaps()">
+        Open in Google Maps →
+    </button>
+
+</div>
+
+
+<!-- CART BAR -->
+
+<div class="cart-bar" id="cartBar">
+
+    <div>
+
+        <div class="cart-count"
+             id="cartCount">
+            0 items
+        </div>
+
+        <div class="cart-total"
+             id="cartTotal">
+            ₹0
+        </div>
+
+    </div>
+
+    <button
+        class="cart-view"
+        onclick="openCart()">
+        View Cart →
+    </button>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <div
+        class="nav-item active"
+        onclick="home()">
+
+        <div class="nav-icon">
+            ⌂
+        </div>
+
+        Home
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="goMenu()">
+
+        <div class="nav-icon">
+            ☷
+        </div>
+
+        Menu
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="showOffers()">
+
+        <div class="nav-icon">
+            ✦
+        </div>
+
+        Offers
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="openCart()">
+
+        <div class="nav-icon">
+            🛒
+        </div>
+
+        Cart
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="callRestaurant()">
+
+        <div class="nav-icon">
+            ☎
+        </div>
+
+        Call
+
+    </div>
+
+</nav>
+
+
+<!-- TOAST -->
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+<!-- CART MODAL -->
+
+<div class="modal"
+     id="cartModal"
+     onclick="closeCartOutside(event)">
+
+    <div class="cart-sheet">
+
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-title">
+            Your Order
+        </div>
+
+        <div
+            class="cart-list"
+            id="cartList">
+        </div>
+
+        <button
+            class="checkout"
+            onclick="orderWhatsApp()">
+            Order on WhatsApp →
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let cart = [];
+
+let total = 0;
+
+
+/* =========================================================
+   SPLASH SCREEN
+========================================================= */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("splash")
+            .classList.add("hide");
+
+    },3000);
+
+});
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const element =
+        document.getElementById("toast");
+
+    element.innerText = message;
+
+    element.classList.add("show");
+
+    setTimeout(()=>{
+
+        element.classList.remove("show");
+
+    },1800);
+
+}
+
+
+/* =========================================================
+   ADD FOOD
+========================================================= */
+
+function addItem(name,price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    total += price;
+
+    updateCart();
+
+    toast(name + " added to cart ✓");
+
+}
+
+
+/* =========================================================
+   UPDATE CART
+========================================================= */
+
+function updateCart(){
+
+    const count =
+        document.getElementById("cartCount");
+
+    const totalElement =
+        document.getElementById("cartTotal");
+
+    count.innerText =
+        cart.length +
+        (cart.length === 1 ? " item" : " items");
+
+    totalElement.innerText =
+        "₹" + total;
+
+    const bar =
+        document.getElementById("cartBar");
+
+    if(cart.length > 0){
+
+        bar.classList.add("show");
+
+    }else{
+
+        bar.classList.remove("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN CART
+========================================================= */
+
+function openCart(){
+
+    if(cart.length === 0){
+
+        toast("Your cart is empty");
+
+        return;
+
+    }
+
+    const list =
+        document.getElementById("cartList");
+
+    list.innerHTML = "";
+
+    cart.forEach((item,index)=>{
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "cart-row";
+
+        row.innerHTML = `
+
+            <div class="cart-row-name">
+                ${item.name}
+            </div>
+
+            <div class="cart-row-price">
+                ₹${item.price}
+            </div>
+
+        `;
+
+        list.appendChild(row);
+
+    });
+
+    document
+        .getElementById("cartModal")
+        .classList.add("open");
+
+}
+
+
+/* =========================================================
+   CLOSE CART
+========================================================= */
+
+function closeCartOutside(event){
+
+    if(event.target.id === "cartModal"){
+
+        document
+            .getElementById("cartModal")
+            .classList.remove("open");
+
+    }
+
+}
+
+
+/* =========================================================
+   WHATSAPP ORDER
+========================================================= */
+
+function orderWhatsApp(){
+
+    if(cart.length === 0){
+
+        toast("Add food to your cart first");
+
+        return;
+
+    }
+
+    let message =
+        "Hello KAT Multicuisine Restaurant! 👋%0A%0A";
+
+    message +=
+        "I would like to place an order:%0A%0A";
+
+    cart.forEach(item=>{
+
+        message +=
+            "• " +
+            item.name +
+            " - ₹" +
+            item.price +
+            "%0A";
+
+    });
+
+    message +=
+        "%0A*Total: ₹" +
+        total +
+        "*";
+
+    /*
+       MAIN NUMBER:
+       9966111471
+
+       Replace the WhatsApp number below
+       if the restaurant uses another
+       WhatsApp number.
+    */
+
+    const whatsapp =
+        "919966111471";
+
+    window.open(
+        "https://wa.me/" +
+        whatsapp +
+        "?text=" +
+        message,
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   CALL RESTAURANT
+========================================================= */
+
+function callRestaurant(){
+
+    window.location.href =
+        "tel:9966111471";
+
+}
+
+
+/* =========================================================
+   SECOND PHONE
+========================================================= */
+
+function callSecondNumber(){
+
+    window.location.href =
+        "tel:8328238863";
+
+}
+
+
+/* =========================================================
+   GOOGLE MAPS
+========================================================= */
+
+function openMaps(){
+
+    const address =
+        "KAT Multicuisine Restaurant, Nellore Road, Ayyappa Swamy Temple, Sivalayam Arch, Badvel, Andhra Pradesh";
+
+    window.open(
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(address),
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function goMenu(){
+
+    document
+        .getElementById("menu")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function home(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   OFFERS
+========================================================= */
+
+function showOffers(){
+
+    toast("KAT special offers coming soon ✦");
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function selectCategory(element,category){
+
+    document
+        .querySelectorAll(".category")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+    element.classList.add("active");
+
+    const cards =
+        document.querySelectorAll(".food-card");
+
+    cards.forEach(card=>{
+
+        if(category === "all"){
+
+            card.style.display = "block";
+
+        }else{
+
+            if(
+                card.dataset.category === category
+            ){
+
+                card.style.display = "block";
+
+            }else{
+
+                card.style.display = "none";
+
+            }
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchFood(){
+
+    const query =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards =
+        document.querySelectorAll(".food-card");
+
+    cards.forEach(card=>{
+
+        const name =
+            card
+            .querySelector(".food-name")
+            .innerText
+            .toLowerCase();
+
+        if(name.includes(query)){
+
+            card.style.display = "block";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   PARALLAX EFFECT
+========================================================= */
+
+window.addEventListener("scroll",()=>{
+
+    const hero =
+        document.querySelector(".hero");
+
+    if(!hero) return;
+
+    const scroll =
+        window.scrollY;
+
+    hero.style.backgroundPosition =
+        `center calc(50% + ${scroll * .035}px)`;
+
+});
+
+
+/* =========================================================
+   3D CARD TILT
+========================================================= */
+
+document
+.querySelectorAll(".food-card")
+.forEach(card=>{
+
+    card.addEventListener(
+        "touchmove",
+        ()=>{
+            card.style.transform =
+                "scale(.985)";
+        }
+    );
+
+    card.addEventListener(
+        "touchend",
+        ()=>{
+            card.style.transform =
+                "";
+        }
+    );
+
+});
+
+
+</script>
+
+</body>
+</html>
